@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 
 const vendorARoute = require('./vendors/vendor1.js');
-// const vendorARoute = require('./vendors/vendor2.js');
 
 const app = express();
 const PORT = process.env.PORT || 3300;
@@ -13,7 +12,6 @@ app.use(express.json());
 
 // route vendor A
 app.use('/vendor1', vendorARoute);
-// app.use('/vendor2', vendorARoute);
 
 // status check
 app.get('/status', (req, res) => {
