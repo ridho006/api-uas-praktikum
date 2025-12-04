@@ -92,13 +92,13 @@ app.get('/:id', async (req, res, next) => {
 });
 
 app.post('/', async (req, res, next) => {
-    const { sku, productName, price, isAvailable } = req.body;
+    const { sku, productname, price, isavailable } = req.body;
     try {
         const sql = `
-            INSERT INTO vendor_b (sku, productName, price, isAvailable)
+            INSERT INTO vendor_b (sku, productname, price, isavailable)
             VALUES ($1, $2, $3, $4) RETURNING *
         `;
-        const result = await db.query(sql, [sku, productName, price, isAvailable]);
+        const result = await db.query(sql, [sku, productname, price, isavailable]);
         res.status(201).json(result.rows[0]);
     } catch (err) {
         next(err);
