@@ -61,6 +61,33 @@ function normalizeM3(rows) {
   });
 }
 
+app.get("/vendorA", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM vendor_a ORDER BY kd_produk ASC");
+    res.json({ total: result.rowCount, data: result.rows });
+  } catch (err) {
+    res.status(500).json({ error: "Server error", detail: err.message });
+  }
+});
+
+app.get("/vendorB", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM vendor_b ORDER BY sku ASC");
+    res.json({ total: result.rowCount, data: result.rows });
+  } catch (err) {
+    res.status(500).json({ error: "Server error", detail: err.message });
+  }
+});
+
+app.get("/vendorC", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM vendor_c ORDER BY id ASC");
+    res.json({ total: result.rowCount, data: result.rows });
+  } catch (err) {
+    res.status(500).json({ error: "Server error", detail: err.message });
+  }
+});
+
 app.get("/all-products", async (req, res) => {
   try {
     const [m1, m2, m3] = await Promise.all([
