@@ -105,7 +105,7 @@ app.post('/',authenticateToken, async (req, res, next) => {
     }
 });
 
-app.put('/:id',authenticateToken, async (req, res, next) => {
+app.put('/:id', [authenticateToken, authorizeRole('admin')], async (req, res, next) => {
     const { kd_produk, nm_brg, hrg, ket_stok } = req.body;
     try {
         const sql = `
@@ -120,7 +120,7 @@ app.put('/:id',authenticateToken, async (req, res, next) => {
     }
 });
 
-app.delete('/:id', authenticateToken, async (req, res, next) => {
+app.delete('/:id', [authenticateToken, authorizeRole('admin')], async (req, res, next) => {
     try {
         const result = await db.query("DELETE FROM vendor_a WHERE id=$1 RETURNING *", [req.params.id]);
         if (result.rowCount === 0) return res.status(404).json({ error: "Data tidak ditemukan" });
