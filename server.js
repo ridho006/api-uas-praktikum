@@ -7,14 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// === HELPER ===
 function toInt(v) {
   return parseInt(String(v).replace(/[^\d]/g, ''), 10) || 0;
 }
 
-// ==========================================================
-// NORMALISASI VENDOR A (WARUNG KLONTONG)
-// ==========================================================
 function normalizeM1(rows) {
   return rows.map(r => {
     const harga_diskon = Math.round(toInt(r.hrg) * 0.9);
@@ -31,9 +27,6 @@ function normalizeM1(rows) {
   });
 }
 
-// ==========================================================
-// NORMALISASI VENDOR B
-// ==========================================================
 function normalizeM2(rows) {
   return rows.map(r => ({
     vendor: "Vendor B",
@@ -45,9 +38,6 @@ function normalizeM2(rows) {
   }));
 }
 
-// ==========================================================
-// NORMALISASI VENDOR C
-// ==========================================================
 function normalizeM3(rows) {
   return rows.map(r => {
     const details = typeof r.details === "string" ? JSON.parse(r.details) : r.details;
@@ -71,9 +61,6 @@ function normalizeM3(rows) {
   });
 }
 
-// ==========================================================
-// ENDPOINT NORMALISASI (TANPA RAW DATA)
-// ==========================================================
 app.get("/all-products", async (req, res) => {
   try {
     const [m1, m2, m3] = await Promise.all([

@@ -91,7 +91,7 @@ app.get('/:id', async (req, res, next) => {
     }
 });
 
-app.post('/', async (req, res, next) => {
+app.post('/', authenticateToken, async (req, res, next) => {
     const { id, details, pricing, stock } = req.body;
     if (!id) {
         return res.status(400).json({ error: "Field 'id' wajib diisi" });
